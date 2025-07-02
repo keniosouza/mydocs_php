@@ -1,0 +1,19 @@
+{
+  "application": {
+    "main": {
+      "title": "MyCMS | 23.3.1",
+      "url": "http:\/\/localhost/mydocs\/",
+      "datagrid": {
+        "rows": 50,
+        "cols": 10
+      },
+      "environment": "development"
+    }
+  },
+ "database": {
+    "name": "mydocs",
+    "user": "root",
+    "password": "root",
+    "charset": "UTF8"
+  }
+}

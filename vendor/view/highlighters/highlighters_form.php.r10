@@ -1,0 +1,174 @@
+<?php
+
+/** Importação de classes */
+use \vendor\model\Highlighters;
+use \vendor\controller\highlighters\HighlightersValidate;
+
+/** Instânciamento de classes */
+$Highlighters = new Highlighters();
+$HighlightersValidate = new HighlightersValidate();
+
+/** Tratamento dos dados de entrada */
+$HighlightersValidate->setHighlighterId(@(int)filter_input(INPUT_POST, 'HIGHLIGHTER_ID', FILTER_SANITIZE_SPECIAL_CHARS));
+
+/** Busca de registro */
+$resultHighlighters = $Highlighters->Get($HighlightersValidate->getHighlighterId());
+
+/** Decodifico o corpo do texto */
+$resultHighlighters->text = (object)json_decode($resultHighlighters->text);
+$resultHighlighters->preferences = (object)json_decode($resultHighlighters->preferences);
+
+?>
+
+<div class="row">
+
+    <div class="col-md-12">
+
+        <h5 class="card-title">
+
+            <strong>
+
+                <i class="fas fa-highlighter mr-1"></i>
+
+                Marcações
+
+            </strong>
+
+            /Formulário/
+            
+            <a type="button" class="btn btn-primary btn-sm" onclick="sendRequest('FOLDER=VIEW&TABLE=HIGHLIGHTERS&ACTION=HIGHLIGHTERS_DATAGRID', '', true, '', '', '', 'Aguarde...', 'blue', 'circle', 'sm', true)">
+
+                <i class="fas fa-chevron-left mr-1"></i>Voltar
+
+            </a>
+
+        </h5>
+
+    </div>
+
+    <div class="col-md-12 animate slideIn">
+
+        <div class="card shadow-sm">
+
+            <form class="card-body" role="form" id="formUsers">
+
+                <div class="row">
+
+                    <div class="col-md-12">
+
+                        <div class="form-group">
+
+                            <label for="name">
+
+                                Nome
+
+                            </label>
+
+                            <input type="text" id="name" class="form-control" name="name" value="<?php echo @(string)$resultHighlighters->name?>">
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-4">
+
+                        <div class="form-group">
+
+                            <label for="table">
+
+                                Tabela
+
+                            </label>
+
+                            <input type="text" id="table" class="form-control" name="table" value="<?php echo @(string)$resultHighlighters->text->table?>">
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-4">
+
+                        <div class="form-group">
+
+                            <label for="column">
+
+                                Coluna
+
+                            </label>
+
+                            <input type="text" id="column" class="form-control" name="column" value="<?php echo @(string)$resultHighlighters->text->column?>">
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-4">
+
+                        <div class="form-group">
+
+                            <label for="primary_key">
+
+                                Chave Primária
+
+                            </label>
+
+                            <input type="text" id="primary_key" class="form-control" name="primary_key" value="<?php echo @(string)$resultHighlighters->text->primary_key?>">
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-12">
+
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="texto_negrito" name="texto_negrito" <?php echo @(string)$resultHighlighters->preferences->text->negrito === "on" ? "checked" : null ?> >
+                                <label class="form-check-label" for="texto_negrito">
+                                    <b>Negrito</b>
+                                </label>
+                             </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox"  id="texto_italico" name='texto_italico' <?php echo @(string)$resultHighlighters->preferences->text->italico === "on" ? "checked" : null ?> >
+                                <label class="form-check-label" for="texto_italico">
+                                    <i>Itálico</i>
+                                </label>
+                             </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox"  id="texto_sublinhado" name='texto_sublinhado' <?php echo @(string)$resultHighlighters->preferences->text->sublinhado === "on" ? "checked" : null ?> >
+                                <label class="form-check-label" for="texto_sublinhado">
+                                    <u>Sublinhado</u>
+                                </label>
+                             </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox"  id="texto_mascara" name='texto_mascara' <?php echo @(string)$resultHighlighters->preferences->text->mascara === "on" ? "checked" : null ?> >
+                                <label class="form-check-label" for="texto_mascara">
+                                    Formatação CPF/CNPJ <b>(000.000.000/00)</b>
+                                </label>
+                             </div>                        
+                        </div>
+                    </div>                    
+
+                    <div class="col-md-12 text-right">
+                    
+                        <button type="button" class="btn btn-primary" onclick="sendRequest('formUsers', '', true, '', '', '', 'Aguarde...', 'blue', 'circle', 'sm', true)">
+
+                            <i class="far fa-paper-plane mr-1"></i>Salvar
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <input type="hidden" name="highlighter_id" value="<?php echo @(int)$resultHighlighters->highlighter_id?>"/>
+                <input type="hidden" name="FOLDER" value="ACTION"/>
+                <input type="hidden" name="TABLE" value="HIGHLIGHTERS"/>
+                <input type="hidden" name="ACTION" value="HIGHLIGHTERS_SAVE"/>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
