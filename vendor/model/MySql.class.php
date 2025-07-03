@@ -23,7 +23,7 @@ class MySql
         if (!isset(self::$pdo)) {
 
             /** Inicio a conexão com o banco de dados **/
-            self::$pdo = new PDO($host->getDsn() . ';charset=' . $host->getCharset(), $host->getUser(), $host->getPassword());
+            self::$pdo = new PDO('mysql://mysql:sun147oi@api_mysql:3306/mydocs');
 
             /** Habilito a listagem de erros ao executar o sql **/
             self::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
