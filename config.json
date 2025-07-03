@@ -2,7 +2,7 @@
   "application": {
     "main": {
       "title": "MyCMS | 23.3.1",
-      "url": "https:\/\/mydocs.oriustecnologia.com\/",
+      "url": "https:\/\/api-mydocs.gbrqne.easypanel.host/",
       "datagrid": {
         "rows": 50,
         "cols": 10
