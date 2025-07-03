@@ -17,6 +17,9 @@ RUN apt-get update && apt-get install -y \
 # Habilita o módulo de reescrita do Apache (útil para Laravel ou outros frameworks)
 RUN a2enmod rewrite
 
+# Adiciona a diretiva ServerName globalmente
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
 # Substitui a configuração padrão do Apache para permitir .htaccess
 COPY ./apache/000-default.conf /etc/apache2/sites-available/000-default.conf
 
