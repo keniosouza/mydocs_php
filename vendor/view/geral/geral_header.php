@@ -8,9 +8,9 @@
 
     <h4 class="mb-0">
 
-        <img src="image/logo.png" width="220" alt="Mydocs - Orius Tecnologia" loading="lazy">
+        <img src="image/logo.png" width="180" alt="Mydocs - Orius Tecnologia" loading="lazy">
         <strong>My</strong>Docs
 
     </h4>
 
-</header>
+</header>similar_text
