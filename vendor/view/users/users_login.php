@@ -6,7 +6,7 @@
 
         <form class="card-body" role="form" id="UsersLoginForm">
 
-            <h3 class="card-title">
+            <h3 class="card-title text-center">
 
                 <img src="image/logo.png" width="180" alt="Mydocs - Orius Tecnologia" loading="lazy">
 
@@ -14,7 +14,9 @@
 
             </h3>
 
-            <h6 class="card-subtitle text-muted">
+            <hr/>
+
+            <h6 class="card-subtitle text-muted text-center">
 
                 Acesso a Aplicação
 
