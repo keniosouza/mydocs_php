@@ -27,7 +27,7 @@ class Host
     public function getDsn()
     {
 
-        return 'mysql:port=3306;dbname=' . (string)$this->Config->database->name;
+        return 'mysql:host=' . (string)$this->Config->database->host . ';port=' . (string)$this->Config->database->port . ';dbname=' . (string)$this->Config->database->name;
         
     }
 
