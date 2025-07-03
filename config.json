@@ -11,10 +11,11 @@
     }
   },
  "database": {
-    "host": "db",
+    "host": "api_mysql",
     "name": "mydocs",
+    "port": "3306",
     "user": "mysql",
     "password": "sun147oi",
-    "charset": "UTF8"
+    "charset": "utf8"
   }
 }
