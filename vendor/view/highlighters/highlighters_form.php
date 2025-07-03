@@ -15,8 +15,20 @@ $HighlightersValidate->setHighlighterId(@(int)filter_input(INPUT_POST, 'HIGHLIGH
 /** Busca de registro */
 $resultHighlighters = $Highlighters->Get($HighlightersValidate->getHighlighterId());
 
+// Se nenhum registro for encontrado, inicializa com um objeto vazio para evitar erros
+if ($resultHighlighters === false) {
+    $resultHighlighters = (object)[
+        'text' => '{}',
+        'preferences' => '{}',
+        'name' => '',
+        'group' => '',
+        'highlighter_id' => 0
+    ];
+}
+
 /** Decodifico o corpo do texto */
 $resultHighlighters->text = (object)json_decode($resultHighlighters->text);
+
 $resultHighlighters->preferences = (object)json_decode($resultHighlighters->preferences);
 
 ?>
