@@ -2,7 +2,7 @@
   "application": {
     "main": {
       "title": "MyCMS | 23.3.1",
-      "url": "http:\/\/localhost/mydocs\/",
+      "url": "https:\/\/mydocs.oriustecnologia.com\/",
       "datagrid": {
         "rows": 50,
         "cols": 10
@@ -12,8 +12,8 @@
   },
  "database": {
     "name": "mydocs",
-    "user": "root",
-    "password": "root",
+    "user": "mysql",
+    "password": "sun147oi",
     "charset": "UTF8"
   }
 }
