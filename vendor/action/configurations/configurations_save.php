@@ -93,12 +93,12 @@ try {
         {
 
             /** Adição de elementos na array */
-            array_push($message, array('erro', 'Não foi possivel salvar o registro'));
+            array_push($message, array('sucesso', 'Registro salvo com sucesso!'));
 
             /** Result **/
             $result = [
 
-                'code' => 0,
+                'code' => 1,
                 'title' => 'Sucesso',
                 'message' => $message,
                 'redirect' => 'FOLDER=VIEW&TABLE=CONFIGURATIONS&ACTION=CONFIGURATIONS_DATAGRID',
@@ -113,7 +113,7 @@ try {
             /** Result **/
             $result = [
 
-                'cod' => 1,
+                'code' => 0,
                 'title' => 'Atenção',
                 'message' => $message,
 
