@@ -47,6 +47,9 @@ try {
 
         /** Busco o Histórico */
         $resultHistory = json_decode($Configurations->Get($ConfigurationsValidate->getConfigurationId())->history,true);
+        if ($resultHistory === null) {
+            $resultHistory = [];
+        }
 
         /** Captura dos dados de login */
         $history[0]['title'] = 'Atualização';
