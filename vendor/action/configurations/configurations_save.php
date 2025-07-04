@@ -126,7 +126,8 @@ try {
 /** Verifico a existência de erros Email */
 if (!empty($ConfigurationsEmailPreferencesValidate->getErrors())) {
 
-    throw new InvalidArgumentException($ConfigurationsEmailPreferencesValidate->getErrors());
+    throw new InvalidArgumentException(implode("
+", $ConfigurationsEmailPreferencesValidate->getErrors()));
 
 } else {
 
