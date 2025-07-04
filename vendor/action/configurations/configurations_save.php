@@ -154,6 +154,9 @@ if (!empty($ConfigurationsEmailPreferencesValidate->getErrors())) {
     else
     {             
 
+        /** Inicializo as preferências como um array vazio se estiverem vazias */
+        $resultConfiguration->preferences = [];
+
         /** Unifico a configuração atual com a anterior */
         $resultConfiguration->preferences['email'] = $preferences;
     
