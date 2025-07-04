@@ -127,7 +127,7 @@ try {
 if (!empty($ConfigurationsEmailPreferencesValidate->getErrors())) {
 
     throw new InvalidArgumentException(implode("
-", $ConfigurationsEmailPreferencesValidate->getErrors()));
+", array_column($ConfigurationsEmailPreferencesValidate->getErrors(), 1)));
 
 } else {
 
