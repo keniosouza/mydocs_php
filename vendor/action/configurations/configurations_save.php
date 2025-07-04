@@ -11,7 +11,7 @@ $ConfigurationsValidate = new ConfigurationsValidate();
 $ConfigurationsEmailPreferencesValidate = new ConfigurationsEmailPreferencesValidate();
 
 /** Controle de mensagens */
-$message = null;
+$message = [];
 $history = array();
 
 try {
