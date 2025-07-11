@@ -26,51 +26,60 @@ if (!empty($usersValidate->getErrors())) {
 } else {
 
     /** Realizo o acesso */
-    $resultUser = $users->access($usersValidate->getEmail(), md5($usersValidate->getPassword()));
+    $resultUser = $users->access($usersValidate->getEmail());
 
     /** Verifico se o usuário foi localizado */
     if (@(int)$resultUser->user_id > 0) {
 
-        /** Captura dos dados de login */
-        $historyData[0]['title'] = 'Login';
-        $historyData[0]['description'] = 'Acesso Realizado no dia';
-        $historyData[0]['date'] = date('d-m-Y');
-        $historyData[0]['time'] = date('H:i:s');
-        $historyData[0]['ip'] = $_SERVER['REMOTE_ADDR'];
-        $historyData[0]['class'] = 'badge-primary';
+        if ( !password_verify($usersValidate->getPassword(), $resultUser->password) ) {
 
-        /** Verifico se já existe históric */
-        if (!empty($resultUser->history)) {
+            /** Captura dos dados de login */
+            $historyData[0]['title'] = 'Login';
+            $historyData[0]['description'] = 'Acesso Realizado no dia';
+            $historyData[0]['date'] = date('d-m-Y');
+            $historyData[0]['time'] = date('H:i:s');
+            $historyData[0]['ip'] = $_SERVER['REMOTE_ADDR'];
+            $historyData[0]['class'] = 'badge-primary';
 
-            /** Pego o histórico existente */
-            $history = json_decode($resultUser->history, TRUE);
+            /** Verifico se já existe históric */
+            if (!empty($resultUser->history)) {
 
-            /** Unifico os históricos */
-            $historyData = array_merge($history, $historyData);
+                /** Pego o histórico existente */
+                $history = json_decode($resultUser->history, TRUE);
+
+                /** Unifico os históricos */
+                $historyData = array_merge($history, $historyData);
+            }
+
+            /** Converto para JSON */
+            $historyData = json_encode($historyData, JSON_PRETTY_PRINT);
+
+            /** Salvo o histórico de acesso */
+            $users->history($resultUser->user_id, $historyData);
+
+            /** Operações */
+            $main->SessionStart();
+
+            /** Montagem da sessão */
+            $_SESSION['USER_ID'] = $resultUser->user_id;
+            $_SESSION['USER_NAME'] = $resultUser->name;
+
+            /** Result **/
+            $result = [
+
+                'code' => 202,
+                'title' => 'Sucesso',
+                'data' => 'Usuário localizado com sucesso!',
+                'url' => ''
+
+            ];
+
+        } else {
+
+            /** Preparo o formulario para retorno **/
+            throw new InvalidArgumentException('Senhas não conferem, verifique os dados informados!');
+
         }
-
-        /** Converto para JSON */
-        $historyData = json_encode($historyData, JSON_PRETTY_PRINT);
-
-        /** Salvo o histórico de acesso */
-        $users->history($resultUser->user_id, $historyData);
-
-        /** Operações */
-        $main->SessionStart();
-
-        /** Montagem da sessão */
-        $_SESSION['USER_ID'] = $resultUser->user_id;
-        $_SESSION['USER_NAME'] = $resultUser->name;
-
-        /** Result **/
-        $result = [
-
-            'code' => 202,
-            'title' => 'Sucesso',
-            'data' => 'Usuário localizado com sucesso!',
-            'url' => ''
-
-        ];
 
     } else {
 

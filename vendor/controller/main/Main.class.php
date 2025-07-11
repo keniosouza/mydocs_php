@@ -24,13 +24,32 @@ class Main
     private $data = null;
     private $resultConfig = null;
     private $file = null;
-    private $elements = null;
+    private $elements  = null;
+    private $method    = null;
+    private $firstKey  = null;        
+    private $secondKey = null; 
+    private $hash      = null;     
+    private $config    = null;
 
     /** Controle de Alertas */
     private $type;
     private $title;
 
     private $path = null;
+
+    /** Construtor da classe */
+    public function __construct()
+    {
+        
+        $this->config = $this->LoadConfig();
+        
+        /** Parametros para descriptografar dados */
+        $this->method    = $this->config->{'security'}->{'method'};
+        $this->firstKey  = $this->config->{'security'}->{'first_key'};        
+        $this->secondKey = $this->config->{'security'}->{'second_key'}; 
+        $this->hash      = $this->config->{'security'}->{'hash'}; 
+        
+    }    
     
     /** Inicializo a sessão */
     public function SessionStart()
@@ -557,4 +576,110 @@ class Main
 
     }
 
+    /** Retorna o metodo de criptografia */
+    private function getMethod()
+    {
+
+        return $this->method;
+    }
+
+    /** Retorna a primeira chave de criptografia */
+    private function getFirstKey()
+    {
+
+        return $this->firstKey;
+    } 
+    
+    //** Retorna a segunda chave de criptografia */
+    private function getSecondKey()
+    {
+
+        return $this->secondKey;
+    }      
+
+    /** Retorna a string descriptografada */
+    public function decryptData(string $data) : string
+    {
+
+        /** Parametro de entrada */
+        $this->data = $data;
+
+        /** Verifica se a string a se descriptografada foi informada */
+        if(!empty($this->data)){
+
+            return $this->securedDecrypt($this->getFirstKey(), $this->getMethod(), $this->data);
+
+        }else{
+
+            return $this->data;
+        }
+        
+    }
+
+    /** Retorna a string criptografada */
+    public function encryptData(string $data) : string
+    {
+
+        /** Parametro de entrada */
+        $this->data = $data;
+
+        /** Verifica se a string a se criptografada foi informada */
+        if(!empty($this->data)){
+
+            return $this->securedEncrypt($this->getFirstKey(), $this->getSecondKey(), $this->getMethod(), $this->data);
+
+        }else{
+
+            return $this->data;
+        }
+        
+    }
+	
+    /** Criptografa uma string */
+    public function securedEncrypt($first_key, $second_key, $method, $str)
+    {
+        /** String a ser criptografada */ 
+        $data =  $str;
+          
+        $iv_length = openssl_cipher_iv_length($method);
+        $iv = openssl_random_pseudo_bytes($iv_length);
+            
+        $first_encrypted = openssl_encrypt($data,$method,$first_key, OPENSSL_RAW_DATA ,$iv);   
+        $second_encrypted = hash_hmac('sha3-512', $first_encrypted, $second_key, TRUE);
+                
+        $output = base64_encode($iv.$second_encrypted.$first_encrypted);   
+        
+        return $output;       
+    }
+    
+   /** Descriptografa uma string */ 
+    public function securedDecrypt($first_key, $method, $input)
+    {
+        /** String a ser descriptografada */         
+        $mix = base64_decode($input);
+             
+        $iv_length = openssl_cipher_iv_length($method);
+                
+        $iv = substr($mix,0,$iv_length);
+        $first_encrypted = substr($mix,$iv_length+64);
+        
+        /** Descriptografa string */
+        $output = openssl_decrypt($first_encrypted,$method,$first_key,OPENSSL_RAW_DATA,$iv);
+        
+        return $output;
+    }      
+
+    public function __destruct()
+    {
+        /** Limpo os parâmetros */
+        $this->string = null;
+        $this->long = null;
+        $this->data = null;
+        $this->resultConfig = null;
+        $this->file = null;
+        $this->elements = null;
+        $this->type = null;
+        $this->title = null;
+        $this->path = null;
+    }
 }

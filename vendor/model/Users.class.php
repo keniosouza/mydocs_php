@@ -175,22 +175,21 @@ class Users{
     }
 
     /** Busco o email e senha */
-    public function access($email, $password)
+    public function access($email)
     {
 
         /** Parâmetros de entrada */
         $this->email = $email;
-        $this->password = $password;
 
         /** Montagem do SQL */
-        $this->sql = 'SELECT * FROM users WHERE email = :email and password = :password ORDER BY user_id DESC LIMIT 1;';
+        $this->sql = 'SELECT * FROM users WHERE email = :email 
+                      ORDER BY user_id DESC LIMIT 1;';
 
         /** Preparo o Sql para execução */
         $this->stmt = $this->connection->connect()->prepare($this->sql);
 
         /** Adiciono os valores */
         $this->stmt->bindParam(':email', $this->email);
-        $this->stmt->bindParam(':password', $this->password);
 
         /** Executo o SQL */
         $this->stmt->execute();

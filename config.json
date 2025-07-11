@@ -2,7 +2,7 @@
   "application": {
     "main": {
       "title": "Mydocs | 25.07.3",
-      "url": "https:\/\/api-mydocs.gbrqne.easypanel.host/",
+      "url": "http://localhost/mydocs",
       "datagrid": {
         "rows": 50,
         "cols": 10
@@ -16,11 +16,11 @@
                 "hash": "43170E01071F0D3B1437"
               },   
  "database": {
-    "host": "api_mysql",
+    "host": "localhost",
     "name": "mydocs",
     "port": "3306",
-    "user": "mysql",
-    "password": "sun147oi",
+    "user": "root",
+    "password": "root",
     "charset": "utf8"
   }
 }
