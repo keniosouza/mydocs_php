@@ -39,7 +39,7 @@ if (!empty($UsersValidate->getErrors())) {
     } else {
 
         /** Criptografo a senha */
-        $UsersValidate->setPassword(md5($UsersValidate->getPassword()));
+        $UsersValidate->setPassword($Main->encryptData($UsersValidate->getPassword()));
 
     }
 

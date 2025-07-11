@@ -10,6 +10,11 @@
       "environment": "development"
     }
   },
+  "security" : {"method": "aes-256-cbc",
+                "first_key": "1B0B043A1C185F261D",
+                "second_key": "1B0B043A0C05422C1E0A",
+                "hash": "43170E01071F0D3B1437"
+              },   
  "database": {
     "host": "api_mysql",
     "name": "mydocs",
