@@ -16,11 +16,11 @@
                 "hash": "43170E01071F0D3B1437"
               },   
  "database": {
-    "host": "localhost",
+    "host": "api_mysql",
     "name": "mydocs",
     "port": "3306",
-    "user": "root",
-    "password": "root",
+    "user": "mysql",
+    "password": "sun147oi",
     "charset": "utf8"
   }
 }
