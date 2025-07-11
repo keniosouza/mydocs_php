@@ -47,14 +47,14 @@ if (!empty($UsersValidate->getErrors())) {
     if ($Users->save($UsersValidate->getUserId(), $UsersValidate->getSituationId(), $UsersValidate->getPermissionId(), $UsersValidate->getNickname(), $UsersValidate->getName(), $UsersValidate->getDateBirth(), $UsersValidate->getOffice(), $UsersValidate->getCtps(), $UsersValidate->getCtpSerie(), $UsersValidate->getPis(), $UsersValidate->getDateAdmission(), $UsersValidate->getEmail(), $UsersValidate->getPassword(), json_encode($UsersValidate->getHistory(), JSON_PRETTY_PRINT))) {
 
         /** Result **/
-        // $result = [
+        $result = [
 
-        //     'code' => 200,
-        //     'title' => 'Sucesso',
-        //     'data' => 'Registro salvo com sucesso',
-        //     'redirect' => 'FOLDER=VIEW&TABLE=USERS&ACTION=USERS_DATAGRID',
+            'code' => 200,
+            'title' => 'Sucesso',
+            'data' => 'Registro salvo com sucesso',
+            'redirect' => 'FOLDER=VIEW&TABLE=USERS&ACTION=USERS_DATAGRID',
 
-        // ];
+        ];
 
     } else {
 
