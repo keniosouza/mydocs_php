@@ -31,7 +31,7 @@ if (!empty($usersValidate->getErrors())) {
     /** Verifico se o usuário foi localizado */
     if (@(int)$resultUser->user_id > 0) {
 
-        if ( !password_verify($usersValidate->getPassword(), $resultUser->password) ) {
+        if ( password_verify($usersValidate->getPassword(), $resultUser->password) ) {
 
             /** Captura dos dados de login */
             $historyData[0]['title'] = 'Login';

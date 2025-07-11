@@ -40,7 +40,7 @@ if (!empty($UsersValidate->getErrors())) {
     } else {
 
         /** Criptografo a senha */
-        $UsersValidate->setPassword($Main->encryptData($UsersValidate->getPassword()));
+        $UsersValidate->setPassword($Main->passwordHash($UsersValidate->getPassword()));
     }
 
     /** Verifico se o usuário foi localizado */

@@ -667,7 +667,26 @@ class Main
         $output = openssl_decrypt($first_encrypted,$method,$first_key,OPENSSL_RAW_DATA,$iv);
         
         return $output;
-    }      
+    }  
+    
+    /** Gera um password hash */
+    public function passwordHash($password){
+
+        /** Parametros de entradas */
+        $this->password = $password;
+
+        /** Verifica se a senha foi informada */
+        if($this->password){
+
+            $hash = PASSWORD_DEFAULT;/** Padrão de criptogrfia */
+            $cost = array("cost"=>10);/** Nível de criptografia */  
+
+            /** Gera o hash da senha */
+            return password_hash($this->password, $hash, $cost);
+            
+        }
+
+    }	    
 
     public function __destruct()
     {
