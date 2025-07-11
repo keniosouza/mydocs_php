@@ -1,6 +1,9 @@
 <?php
 
-/** Defino o local onde a classe esta localizada **/
+/** Defino o local onde a classe esta localizada 
+ * Date: 2025-07-11
+ * 
+ * **/
 namespace vendor\model;
 
 class Main
@@ -25,7 +28,8 @@ class Main
         $this->method    = $this->config->{'security'}->{'method'};
         $this->firstKey  = $this->config->{'security'}->{'first_key'};        
         $this->secondKey = $this->config->{'security'}->{'second_key'}; 
-        $this->hash      = $this->config->{'security'}->{'hash'};          
+        $this->hash      = $this->config->{'security'}->{'hash'}; 
+        
     }
 
     /** Finalizo a sessão */
