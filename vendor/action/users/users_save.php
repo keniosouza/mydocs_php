@@ -22,6 +22,8 @@ $UsersValidate->setPis(@(string)filter_input(INPUT_POST, 'pis', FILTER_SANITIZE_
 $UsersValidate->setDateAdmission(@(string)$_POST['date_admission']);
 $UsersValidate->setEmail(@(string)filter_input(INPUT_POST, 'email', FILTER_SANITIZE_SPECIAL_CHARS));
 
+print_r($Main);
+
 /** Verifico a existência de erros */
 if (!empty($UsersValidate->getErrors())) {
 
