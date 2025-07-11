@@ -2,7 +2,7 @@
   "application": {
     "main": {
       "title": "Mydocs | 25.07.3",
-      "url": "http://localhost/mydocs",
+      "url": "https://api-mydocs.gbrqne.easypanel.host/",
       "datagrid": {
         "rows": 50,
         "cols": 10
