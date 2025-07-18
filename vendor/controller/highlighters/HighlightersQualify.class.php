@@ -108,7 +108,9 @@ class HighlightersQualify
                     $result = @(string)$this->Geral->Get($highlighter->text->table, $highlighter->text->primary_key, $highlighter->text->column, $this->primaryKeyValue);
 
                     /** Formato o texto */
-                    $result = $this->QualifyPreferences($result, $highlighter->preferences);
+                    if (is_object($highlighter->preferences)) {
+                        $result = $this->QualifyPreferences($result, $highlighter->preferences);
+                    }
 
                     /** Preenchimento da marcação */
                     $this->string = str_replace($highlighter->name, $result, $this->string);
