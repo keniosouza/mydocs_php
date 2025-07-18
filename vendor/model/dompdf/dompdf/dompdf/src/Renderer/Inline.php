@@ -42,8 +42,10 @@ class Inline extends AbstractRenderer
         // Draw the background & border behind each child.  To do this we need
         // to figure out just how much space each child takes:
         list($x, $y) = $frame->get_first_child()->get_position();
-        $w = null;
-        $h = 0;
+        $x = (float)$x;
+        $y = (float)$y;
+        $w = 0.0;
+        $h = 0.0;
         // $x += $widths[3];
         // $y += $widths[0];
 
@@ -55,6 +57,10 @@ class Inline extends AbstractRenderer
 
         foreach ($frame->get_children() as $child) {
             list($child_x, $child_y, $child_w, $child_h) = $child->get_padding_box();
+            $child_x = (float)$child_x;
+            $child_y = (float)$child_y;
+            $child_w = (float)$child_w;
+            $child_h = (float)$child_h;
 
             if (!is_null($w) && $child_x < $x + $w) {
                 //This branch seems to be supposed to being called on the first part
@@ -108,8 +114,8 @@ class Inline extends AbstractRenderer
                     $this->_canvas->add_link($href, $x, $y, $w, $h);
                 }
 
-                $x = $child_x;
-                $y = $child_y;
+                $x = (float)$child_x;
+                $y = (float)$child_y;
                 $w = (float)$child_w;
                 $h = (float)$child_h;
                 continue;
@@ -154,7 +160,6 @@ class Inline extends AbstractRenderer
 
         // make sure the border and background start inside the left margin
         $left_margin = (float)$style->length_in_pt($style->margin_left);
-        $x = (float)$x;
         $x += $left_margin;
 
         // If this is the first row, draw the left border too
