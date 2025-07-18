@@ -138,7 +138,7 @@ class Main
     public function LoadConfig(): object
     {
         /** Guardo o resultado */
-        $this->resultConfig = (object)json_decode(file_get_contents("config.json"));
+        $this->resultConfig = (object)json_decode(file_get_contents("config.json", false));
         /** Retorno da informação */
         return (object)$this->resultConfig;
     }
