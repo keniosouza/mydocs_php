@@ -184,6 +184,10 @@ class Block extends AbstractFrameReflower
         //if ( $style->position === "absolute" )
         //  $cb = $frame->find_positionned_parent()->get_containing_block();
 
+        if ($style->display === "none") {
+            return;
+        }
+
         if (!isset($cb["w"])) {
             throw new Exception("Box property calculation requires containing block width");
         }
