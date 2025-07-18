@@ -92,10 +92,14 @@ class HighlightersQualify
                 }
 
                 /** Decodifico a estrutra do texto */
-                $highlighter->text = (object)json_decode($highlighter->text);
+                if (is_string($highlighter->text)) {
+                    $highlighter->text = (object)json_decode($highlighter->text);
+                }
 
                 /** Decodifico a estrutra das preferências */
-                $highlighter->preferences = (object)json_decode($highlighter->preferences);
+                if (is_string($highlighter->preferences)) {
+                    $highlighter->preferences = (object)json_decode($highlighter->preferences);
+                }
 
                 /** Verifico se a marcação foi localizada */
                 if (@(int)$highlighter->highlighter_id > 0 && $highlighter->text->table === $this->table) {
