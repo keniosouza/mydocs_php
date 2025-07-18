@@ -3,6 +3,9 @@
 /** Importação autoload */
 include_once './vendor/autoload.php';
 
+/** Defino o tempo limite de execução */
+set_time_limit(300);
+
 /** Importação de classes */
 use \vendor\controller\main\Main;
 
