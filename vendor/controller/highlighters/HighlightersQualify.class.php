@@ -86,6 +86,11 @@ class HighlightersQualify
             /** Qualifico as marcações por grupo */
             foreach ($resultHighlighter as $key => $highlighter) {
 
+                /** Verifico se é um objeto para dar continuidade */
+                if (!is_object($highlighter)) {
+                    continue;
+                }
+
                 /** Decodifico a estrutra do texto */
                 $highlighter->text = (object)json_decode($highlighter->text);
 
