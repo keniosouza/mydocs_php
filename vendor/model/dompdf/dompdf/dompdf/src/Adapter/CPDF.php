@@ -656,7 +656,7 @@ class CPDF implements Canvas
     {
         $this->_set_stroke_color($color);
         $this->_set_line_style($width, "butt", "", $style);
-        $this->_pdf->rectangle($x1, $this->y($y1) - $h, $w, $h);
+        $this->_pdf->rectangle($x1, (float)$this->y($y1) - $h, $w, $h);
         $this->_set_line_transparency("Normal", $this->_current_opacity);
     }
 
