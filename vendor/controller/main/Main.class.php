@@ -40,7 +40,6 @@ class Main
     /** Construtor da classe */
     public function __construct()
     {
-        parent::__construct();
         $this->resultConfig = (object)json_decode(file_get_contents("config.json", false));
     }    
     
