@@ -189,7 +189,7 @@ class Block extends AbstractFrameReflower
         }
 
         if (!isset($cb["w"])) {
-            throw new Exception("Box property calculation requires containing block width");
+            return;
         }
 
         // Treat width 100% as auto
