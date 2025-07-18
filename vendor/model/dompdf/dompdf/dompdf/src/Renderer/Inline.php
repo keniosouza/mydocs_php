@@ -154,6 +154,7 @@ class Inline extends AbstractRenderer
 
         // make sure the border and background start inside the left margin
         $left_margin = (float)$style->length_in_pt($style->margin_left);
+        $x = (float)$x;
         $x += $left_margin;
 
         // If this is the first row, draw the left border too
