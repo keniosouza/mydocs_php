@@ -40,15 +40,8 @@ class Main
     /** Construtor da classe */
     public function __construct()
     {
-        
-        $this->config = $this->LoadConfig();
-        
-        /** Parametros para descriptografar dados */
-        $this->method    = $this->config->{'security'}->{'method'};
-        $this->firstKey  = $this->config->{'security'}->{'first_key'};        
-        $this->secondKey = $this->config->{'security'}->{'second_key'}; 
-        $this->hash      = $this->config->{'security'}->{'hash'}; 
-        
+        parent::__construct();
+        $this->resultConfig = (object)json_decode(file_get_contents("config.json", false));
     }    
     
     /** Inicializo a sessão */

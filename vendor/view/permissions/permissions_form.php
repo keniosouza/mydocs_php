@@ -15,7 +15,9 @@
     $resultPermissions = $permissions->get($permissionsValidate->getPermissionId());
 
     /** Busco o template de permissões */
-    $permissionsTemplate = (object)json_decode(file_get_contents('document/templates/permissions.json'));
+    <?php
+$permissionsTemplate = (object)json_decode(file_get_contents('document/templates/permissions.json', false));
+$i = 0;
 
 ?>
 

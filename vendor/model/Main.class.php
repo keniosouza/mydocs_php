@@ -49,13 +49,11 @@ class Main
     }
 
     /** Função para carregar as informações */
-    public function LoadConfig()
+    public function getConfig()
     {
-
-        /** Carrego o arquivo de configuração */
-        return (object)json_decode(file_get_contents('config.json'));
-
+        return (object)json_decode(file_get_contents('config.json', false));
     }
+}
 
     /** Verifico se o usuário esta logado */
     public function checkSession()

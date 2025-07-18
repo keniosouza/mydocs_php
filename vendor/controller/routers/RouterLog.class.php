@@ -19,13 +19,10 @@ class RouterLog
 
     public function __construct()
     {
-
-        /** Instânciamento de classes */
-        $this->Main = new Main();
-
+        $this->data = file_exists('requests.json') ? (array)json_decode(file_get_contents('requests.json', false), true) : array();
     }
 
-    /** Salvo o Log de requisição em arquivos */
+    /**
     public function save(int $userId, array $post): void
     {
 
