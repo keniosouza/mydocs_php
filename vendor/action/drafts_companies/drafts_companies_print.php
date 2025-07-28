@@ -47,6 +47,10 @@ if (!empty($DraftsCompaniesValidate->getErrors()) > 0) {
         $text = str_replace('</p>', '</div>', $text);
         $resultDraftCompanies->text = $text;
 
+        $fp = fopen("html.txt", "w+");
+        fwrite($fp, $resultDraftCompanies->text);
+        fclose($fp);
+
         /** Inicio a coleta de dados */
         ob_start();
 
