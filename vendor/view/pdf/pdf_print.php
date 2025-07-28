@@ -133,7 +133,7 @@
     </header>
     <div style="line-height: 1.5;"> 
       
-      <?php echo @(string)strip_tags($resultDraftCompanies->text); ?> 
+      <?php echo @(string)$resultDraftCompanies->text; ?> 
 
     </div>
     <footer style="margin-left: 
