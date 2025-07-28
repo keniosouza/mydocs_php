@@ -42,8 +42,10 @@ if (!empty($DraftsCompaniesValidate->getErrors()) > 0) {
         /** Gero o nome do arquivo */
         $path = $Main->removeAcento($Main->removeMask(str_replace(' ', '_', strtoupper($resultDraftCompanies->nickname . '_' . $resultDraftCompanies->name)))) . '.pdf';
 
-        /** Removo o style para nao dar erro no pdf */
-        $resultDraftCompanies->text = preg_replace('/style="[^"]*"/', '', $resultDraftCompanies->text);
+        /** Converte o HTML para um formato mais simples para o PDF */
+        $text = preg_replace('/<p[^>]*>/', '', $resultDraftCompanies->text); // Remove a tag de abertura do parágrafo
+        $text = str_replace('</p>', '<br><br>', $text); // Substitui a tag de fechamento por quebras de linha
+        $resultDraftCompanies->text = $text;
 
         /** Inicio a coleta de dados */
         ob_start();
