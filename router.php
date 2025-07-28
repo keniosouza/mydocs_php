@@ -4,8 +4,8 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
+require_once(__DIR__ . '/vendor/autoload.php');
 require_once(__DIR__ . '/vendor/autoload_.php');
-require_once('./vendor/autoload.php');
 require_once('./vendor/model/wideImage/WideImage.php');
 require_once('./vendor/model/dompdf/autoload.php');
 require_once('./vendor/model/phpmailer/autoload.php');
