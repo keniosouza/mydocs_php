@@ -4,7 +4,7 @@
 namespace vendor\controller\PDF;
 
 /** Importação de classes */
-require_once __DIR__ . '/../../autoload.php';
+require_once __DIR__ . '/../../model/mpdf/src/Mpdf.php';
 
 use Mpdf\Mpdf;
 use vendor\controller\main\Main;
