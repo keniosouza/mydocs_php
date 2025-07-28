@@ -43,13 +43,13 @@ if (!empty($DraftsCompaniesValidate->getErrors()) > 0) {
         $path = $Main->removeAcento($Main->removeMask(str_replace(' ', '_', strtoupper($resultDraftCompanies->nickname . '_' . $resultDraftCompanies->name)))) . '.pdf';
 
         /** Converte a tag <p> para <div> para evitar bugs de renderização do dompdf */
-        $text = str_replace('<p', '<div', $resultDraftCompanies->text);
-        $text = str_replace('</p>', '</div>', $text);
-        $resultDraftCompanies->text = $text;
+        // $text = str_replace('<p', '<div', $resultDraftCompanies->text);
+        // $text = str_replace('</p>', '</div>', $text);
+        // $resultDraftCompanies->text = $text;
 
-        $fp = fopen("html.txt", "w+");
-        fwrite($fp, $resultDraftCompanies->text);
-        fclose($fp);
+        // $fp = fopen("html.txt", "w+");
+        // fwrite($fp, $resultDraftCompanies->text);
+        // fclose($fp);
 
         /** Inicio a coleta de dados */
         ob_start();
@@ -57,7 +57,7 @@ if (!empty($DraftsCompaniesValidate->getErrors()) > 0) {
         /** Inclusão do arquivo desejado */
         require 'vendor/view/pdf/pdf_print.php';
 
-        /** Prego a estrutura do arquivo */
+        /** Pego a estrutura do arquivo */
         $html = ob_get_contents();
 
         /** Removo o arquivo incluido */

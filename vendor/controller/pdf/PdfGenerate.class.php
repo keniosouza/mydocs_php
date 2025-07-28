@@ -4,14 +4,16 @@
 namespace vendor\controller\PDF;
 
 /** Importação de classes */
-use Dompdf\Dompdf;
+require_once __DIR__ . '/../../model/mpdf/vendor/autoload.php';
+
+use Mpdf\Mpdf;
 use vendor\controller\main\Main;
 
 class PdfGenerate
 {
 
     /** Vairáveis da classe */
-    private $dompdf = null;
+    private $mpdf = null;
     private $Main = null;
     private $preferences = null;
     private $html = null;
@@ -20,82 +22,60 @@ class PdfGenerate
 
     public function __construct()
     {
-
         /** Instânciamento da classe */
-        $this->dompdf = new Dompdf();
         $this->Main = new Main();
-
     }
 
-    /** Método usado para gerar o certificado */
+    /** Método usado para gerar o PDF com mPDF */
     public function generate($html, $dir, $name, $preferences)
     {
-
-        /** Decodifico as perguntas */
+        /** Atribuo os valores as variáveis */
         $this->html = $html;
         $this->dir = $dir;
         $this->name = $name;
         $this->preferences = $preferences;
 
-        /** Carrego a estrutura montada */
-        $this->dompdf->loadHtml($this->html);
+        try {
+            /** Configuração do mPDF */
+            // Converte CM para MM para o mPDF
+            $width_mm = $this->preferences->width * 10;
+            $height_mm = $this->preferences->height * 10;
 
-        /** Defino o papel e o formato */
-        $this->dompdf->setPaper(array(0, 0, $this->Main->CentimeterToPoint($this->preferences->width), $this->Main->CentimeterToPoint($this->preferences->height)), $this->preferences->orientation);
+            // Pega a primeira letra da orientação (L ou P)
+            $orientation = strtoupper(substr($this->preferences->orientation, 0, 1));
 
-        /** Renderizo o html para pdf */
-        $this->dompdf->render();
+            /** Instancia o mPDF com as configurações da página */
+            $this->mpdf = new Mpdf([
+                'mode' => 'utf-8',
+                'format' => [$width_mm, $height_mm],
+                'orientation' => $orientation,
+                'tempDir' => __DIR__ . '/../../model/mpdf/tmp'
+            ]);
 
-        /** Verifico se a pasta do arquivo existe */
-        if (is_dir('.' . $this->dir)) {
+            /** Escreve o HTML no PDF */
+            $this->mpdf->WriteHTML($this->html);
 
-            /** Verifico se o arquivo existe */
-            if (file_exists('.' . $this->dir . $this->name)) {
+            /** Caminho completo do arquivo */
+            $full_path = '.' . $this->dir . $this->name;
+            $directory_path = '.' . $this->dir;
 
-                /** Excluo o arquivo existente */
-                if (unlink('.' . $this->dir . $this->name)) {
-
-                    /** Gero um arquivo em formato pdf */
-                    file_put_contents('.' . $this->dir . $this->name, $this->dompdf->output());
-
-                    /** Retorno o caminho do pdf */
-                    return $this->dir . $this->name;
-
-                } else {
-
+            /** Verifico se a pasta do arquivo existe, se não, a crio */
+            if (!is_dir($directory_path)) {
+                if (!mkdir($directory_path, 0775, true)) {
+                    // Não foi possível criar o diretório
                     return false;
-
                 }
-
-            } else {
-
-                /** Gero um arquivo em formato pdf */
-                file_put_contents('.' . $this->dir . $this->name, $this->dompdf->output());
-
-                /** Retorno o caminho do pdf */
-                return true;
-
             }
 
-        } else {
+            /** Salvo o arquivo PDF (sobrescreve se já existir) */
+            $this->mpdf->Output($full_path, \Mpdf\Output\Destination::FILE);
 
-            /** Crio a pasta do projeto */
-            if (mkdir('.' . $this->dir)) {
+            return true;
 
-                /** Gero um arquivo em formato pdf */
-                file_put_contents('.' . $this->dir . $this->name, $this->dompdf->output());
-
-                /** Retorno o caminho do pdf */
-                return true;
-
-            } else {
-
-                return false;
-
-            }
-
+        } catch (\Mpdf\MpdfException $e) {
+            // Em caso de erro, pode ser útil logar a mensagem
+            // error_log($e->getMessage());
+            return false;
         }
-
     }
-
 }
