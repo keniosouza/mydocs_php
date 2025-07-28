@@ -122,7 +122,7 @@
     }
   </style>
   <body>
-    <header style="margin-left: 
+    <header style="margin-bottom:5px; margin-left: 
 			<?php echo $resultConfiguration->preferences->page->header->margin_left ?>cm; margin-top: 
 			<?php echo $resultConfiguration->preferences->page->header->margin_top ?>cm; margin-right: 
 			<?php echo $resultConfiguration->preferences->page->header->margin_right ?>cm; margin-bottom: 
