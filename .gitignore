@@ -8,3 +8,7 @@ bkps
 
 # Ignora arquivo de configuração
 #app/config/
+
+# Ignora dependências do Composer
+/vendor/
+!/vendor/autoload_.php
