@@ -1,0 +1,8 @@
+feat: Substitui Dompdf por Mpdf para geração de PDF
+
+Refatora a classe PdfGenerate para utilizar a biblioteca Mpdf em vez de Dompdf, visando melhor desempenho e compatibilidade.
+
+As principais alterações incluem:
+- Atualização da classe PdfGenerate para usar Mpdf.
+- Adição da biblioteca Mpdf como um submódulo.
+- Ajustes no arquivo drafts_companies_print.php para refletir a nova implementação.
