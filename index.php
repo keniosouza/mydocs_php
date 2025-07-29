@@ -1,7 +1,7 @@
 <?php
 
 /** Importação autoload */
-include_once './vendor/autoload.php';
+include_once 'router.php';
 
 /** Defino o tempo limite de execução */
 set_time_limit(300);
