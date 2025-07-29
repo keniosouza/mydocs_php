@@ -18,10 +18,10 @@ use \vendor\controller\routers\RouterMinifier;
 $Main = null;
 $resultConfig = null;
 
-try {
+/** Instânciamento de classes */
+$Main = new Main();
 
-    /** Instânciamento de classes */
-    $Main = new Main();
+try {
     $RouterValidate = new RouterValidate();
     $RouterMinifier = new RouterMinifier();
 
