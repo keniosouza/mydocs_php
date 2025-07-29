@@ -18,6 +18,9 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install -j$(nproc) gd \
     && docker-php-ext-install pdo pdo_mysql mysqli zip
 
+# Instala o Composer globalmente
+COPY --from=composer/composer:latest /usr/bin/composer /usr/local/bin/composer
+
 
 # Habilita o módulo de reescrita do Apache (útil para Laravel ou outros frameworks)
 RUN a2enmod rewrite
@@ -31,12 +34,15 @@ COPY ./apache/000-default.conf /etc/apache2/sites-available/000-default.conf
 # Copia os arquivos do projeto para a pasta padrão do Apache
 COPY . /var/www/html/
 
+# Define o diretório de trabalho
+WORKDIR /var/www/html
+
+# Executa composer install para instalar as dependências
+RUN composer install --no-dev --optimize-autoloader
+
 # Define permissões apropriadas
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html
-
-# Define o diretório de trabalho
-WORKDIR /var/www/html
 
 # Expõe a porta padrão HTTP
 EXPOSE 80
