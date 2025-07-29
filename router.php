@@ -15,6 +15,9 @@ use \vendor\controller\main\Main;
 use \vendor\controller\routers\RouterValidate;
 use \vendor\controller\routers\RouterMinifier;
 
+$Main = null;
+$resultConfig = null;
+
 try {
 
     /** Instânciamento de classes */
